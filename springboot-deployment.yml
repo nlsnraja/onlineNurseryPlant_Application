@@ -32,4 +32,4 @@ spec:
                 configMapKeyRef:
                   name: hostname-config
                   key: postgres_host
-          image: '00001969/onlineplantapp'
+          image: 00001969/onlineplantapp
