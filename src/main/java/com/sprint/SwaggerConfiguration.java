@@ -35,41 +35,20 @@ import springfox.documentation.spring.web.plugins.Docket;
 @Configuration
 //@EnableSwagger2
 public class SwaggerConfiguration {
-	private static final String BASIC_AUTH = "basicAuth";
-
-	// CREATING BEAN OF DOCKET
-	@Bean
-	public Docket api() {
-		HttpAuthenticationScheme authenticationScheme = HttpAuthenticationScheme.BASIC_AUTH_BUILDER
-				.name("Basic Authentication").build();
-
-		// RETURNS DOCKET
-		return new Docket(DocumentationType.OAS_30).select().apis(RequestHandlerSelectors.basePackage("com.sprint"))
-				.paths(PathSelectors.any()).build().apiInfo(apiEndPointInfo())
-				.securitySchemes(Collections.singletonList(authenticationScheme)).securitySchemes(securitySchemes())
-				.securityContexts(List.of(securityContext()));
-	}
-
-	// API INFORMATION
-	public ApiInfo apiEndPointInfo() {
-		return new ApiInfoBuilder().title("ONLINE NURSERY PLANT APPLICATION").description("Customer API")
-				.contact(new Contact("NurseryPlant", "https://nurseryplant.com", "plant@gmail.com"))
-				.license("Apache 2.0").licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
-				.version("0.0.1-SNAPSHOT").build();
-	}
-
-	// RETURNS LIST OF SECURITY SCHEME
-	private List<SecurityScheme> securitySchemes() {
-		return List.of(new BasicAuth(BASIC_AUTH));
-	}
-
-	// RETURNS SECURITY CONTEXT
-	private SecurityContext securityContext() {
-		return SecurityContext.builder().securityReferences(Arrays.asList(basicAuthReference())).build();
-	}
-
-	// RETURNS SECURITY REFERENCE
-	private SecurityReference basicAuthReference() {
-		return new SecurityReference(BASIC_AUTH, new AuthorizationScope[0]);
-	}
+	  @Bean
+    public Docket api() {
+        return new Docket(DocumentationType.OAS_30)
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.sprint"))
+                .paths(PathSelectors.any())
+                .build().apiInfo(apiEndPointInfo());
+        
+    }
+    public ApiInfo apiEndPointInfo() {
+        return new ApiInfoBuilder().title("Online Nursery Plant Application")
+                .description("Plant Nursery")
+                .licenseUrl("http://www.apache.org/licenses/LICENCE-2.0.html")
+                .version("0.0.1-SNAPSHOT")
+                .build();
+    }
 }
